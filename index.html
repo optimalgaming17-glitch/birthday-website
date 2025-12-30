@@ -1,34 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Happy Birthday 🎉</title>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Mansvi 🎉</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ff6a88, #ff99ac);
       font-family: Arial, sans-serif;
       text-align: center;
+      color: white;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 20px;
+      background: rgba(255,255,255,0.2);
+      padding: 30px;
       border-radius: 20px;
-    }
-
-    img {
-      width: 250px;
-      border-radius: 15px;
-      margin-top: 15px;
+      width: 90%;
+      max-width: 400px;
+      z-index: 2;
     }
 
     h1 {
-      color: white;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: white;
+      color: #ff5f7e;
+    }
+
+    img {
+      display: none;
+      margin-top: 20px;
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -36,9 +79,43 @@
 <body>
 
   <div class="card">
-    <h1>Happy Birthday ❤️</h1>
-    <img src="Mansvi.PNG" alt="Birthday Image">
+    <h1>🎂 Happy Birthday Mansvi 🎉</h1>
+    <p>
+      May your day be filled with smiles, love, and beautiful memories.
+      You deserve all the happiness today and always ❤️
+    </p>
+
+    <button onclick="startSurprise()">Tap for Surprise 💖</button>
+
+    <img id="photo" src="Mansvi.PNG" alt="Mansvi">
+
+    <audio id="music">
+      <source src="Music.mp3" type="audio/mpeg">
+    </audio>
   </div>
+
+  <script>
+    function startSurprise() {
+      document.getElementById("photo").style.display = "block";
+      document.getElementById("music").play();
+      createHearts();
+    }
+
+    function createHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }, 300);
+    }
+  </script>
 
 </body>
 </html>
