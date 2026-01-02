@@ -47,7 +47,6 @@
       margin-top: 15px;
     }
 
-    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
@@ -75,10 +74,8 @@
 
     <button onclick="startSurprise()">Tap for Surprise 💖</button>
 
-    <!-- SLIDESHOW IMAGE -->
-    <img id="slideshow" src="Mansvi.PNG">
+    <img id="slideshow">
 
-    <!-- MUSIC -->
     <audio id="music">
       <source src="Music.mp3" type="audio/mpeg">
     </audio>
@@ -92,17 +89,28 @@
     ];
 
     let index = 0;
+    let started = false;
 
     function startSurprise() {
+      if (started) return;
+      started = true;
+
       const img = document.getElementById("slideshow");
+      const music = document.getElementById("music");
+
       img.style.display = "block";
-      document.getElementById("music").play();
+      img.src = images[0];
+
+      music.play().catch(() => {
+        console.log("User interaction needed for audio");
+      });
+
       createHearts();
 
       setInterval(() => {
         index = (index + 1) % images.length;
         img.src = images[index];
-      }, 3000); // change photo every 3 seconds
+      }, 3000);
     }
 
     function createHearts() {
