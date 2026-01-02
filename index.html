@@ -9,31 +9,27 @@
     body {
       margin: 0;
       height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      text-align: center;
       color: white;
+      text-align: center;
     }
 
     .card {
       background: rgba(255,255,255,0.2);
-      padding: 30px;
+      padding: 25px;
       border-radius: 20px;
       width: 90%;
-      max-width: 400px;
+      max-width: 420px;
       z-index: 2;
     }
 
     h1 {
       margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 15px;
     }
 
     button {
@@ -45,16 +41,21 @@
       cursor: pointer;
       background: white;
       color: #ff5f7e;
+      font-weight: bold;
     }
 
-    img {
+    .gallery {
       display: none;
       margin-top: 20px;
-      width: 100%;
-      border-radius: 15px;
     }
 
-    /* Floating Hearts */
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 12px;
+    }
+
+    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -20px;
@@ -80,15 +81,22 @@
 
   <div class="card">
     <h1>🎂 Happy Birthday Mansvi 🎉</h1>
+
     <p>
-      May your day be filled with smiles, love, and beautiful memories.
-      You deserve all the happiness today and always ❤️
+      Celebrating this birthday by sharing food and spreading smiles 🤍  
+      A small act of kindness, a big smile 😊🍽️
     </p>
 
     <button onclick="startSurprise()">Tap for Surprise 💖</button>
 
-    <img id="photo" src="Mansvi.PNG" alt="Mansvi">
+    <!-- PHOTO SECTION -->
+    <div class="gallery" id="gallery">
+      <img src="Mansvi.PNG" alt="Mansvi">
+      <img src="Food1.jpg" alt="Food Donation">
+      <img src="Food2.jpg" alt="Food Donation">
+    </div>
 
+    <!-- MUSIC -->
     <audio id="music">
       <source src="Music.mp3" type="audio/mpeg">
     </audio>
@@ -96,7 +104,7 @@
 
   <script>
     function startSurprise() {
-      document.getElementById("photo").style.display = "block";
+      document.getElementById("gallery").style.display = "block";
       document.getElementById("music").play();
       createHearts();
     }
@@ -107,12 +115,10 @@
         heart.className = "heart";
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        heart.style.fontSize = (18 + Math.random() * 22) + "px";
         document.body.appendChild(heart);
 
-        setTimeout(() => {
-          heart.remove();
-        }, 6000);
+        setTimeout(() => heart.remove(), 6000);
       }, 300);
     }
   </script>
