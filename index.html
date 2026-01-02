@@ -8,28 +8,25 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-family: Arial, sans-serif;
       color: white;
       text-align: center;
+      overflow-x: hidden;
     }
 
     .card {
       background: rgba(255,255,255,0.2);
-      padding: 25px;
+      padding: 20px;
       border-radius: 20px;
       width: 90%;
       max-width: 420px;
-      z-index: 2;
+      margin: 30px auto;
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 12px 25px;
       font-size: 16px;
       border: none;
@@ -40,41 +37,64 @@
       font-weight: bold;
     }
 
-    img {
+    /* FIXED PHOTO (QT + YOU) */
+    .main-photo {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 15px;
+    }
+
+    /* DONATION SLIDESHOW */
+    .donation img {
       display: none;
       width: 100%;
       border-radius: 15px;
       margin-top: 15px;
     }
 
+    /* FLOATING HEARTS */
     .heart {
-      position: absolute;
+      position: fixed;
       bottom: -20px;
-      font-size: 24px;
+      font-size: 22px;
       animation: floatUp 6s linear infinite;
-      opacity: 0.8;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-110vh); opacity: 0; }
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- TOP SECTION -->
   <div class="card">
     <h1>🎂 Happy Birthday Mansvi 🎉</h1>
 
     <p>
-      Celebrating this birthday by sharing food and spreading smiles 🤍  
-      A small act of kindness, a big smile 😊🍽️
+      To the girl with the purest heart 🤍  
+      May your life be as beautiful as your smile ✨
     </p>
 
-    <button onclick="startSurprise()">Tap for Surprise 💖</button>
+    <!-- QT JI / YOUR PHOTO (STATIC) -->
+    <img src="Mansvi.PNG" class="main-photo">
+  </div>
 
-    <img id="slideshow">
+  <!-- DONATION SECTION -->
+  <div class="card donation">
+    <h2>🍽️ Birthday Donation</h2>
+
+    <p>
+      Celebrating this day by sharing food  
+      and spreading smiles 🤍
+    </p>
+
+    <button onclick="startSlideshow()">View Moments 💖</button>
+
+    <!-- SLIDESHOW ONLY HERE -->
+    <img id="donationSlide">
 
     <audio id="music">
       <source src="Music.mp3" type="audio/mpeg">
@@ -83,45 +103,41 @@
 
   <script>
     const images = [
-      "Mansvi.PNG",
       "Food1.jpg",
-      "Food2.jpg"
+      "Food2.jpg",
+      "Food3.jpg"
     ];
 
-    let index = 0;
+    let i = 0;
     let started = false;
 
-    function startSurprise() {
+    function startSlideshow() {
       if (started) return;
       started = true;
 
-      const img = document.getElementById("slideshow");
+      const img = document.getElementById("donationSlide");
       const music = document.getElementById("music");
 
       img.style.display = "block";
       img.src = images[0];
 
-      music.play().catch(() => {
-        console.log("User interaction needed for audio");
-      });
-
-      createHearts();
+      music.play().catch(()=>{});
 
       setInterval(() => {
-        index = (index + 1) % images.length;
-        img.src = images[index];
+        i = (i + 1) % images.length;
+        img.src = images[i];
       }, 3000);
+
+      setInterval(createHeart, 300);
     }
 
-    function createHearts() {
-      setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-      }, 300);
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
     }
   </script>
 
