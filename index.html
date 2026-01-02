@@ -9,7 +9,7 @@
     body {
       margin: 0;
       height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       display: flex;
       justify-content: center;
@@ -28,10 +28,6 @@
       z-index: 2;
     }
 
-    h1 {
-      margin-bottom: 10px;
-    }
-
     button {
       margin-top: 20px;
       padding: 12px 25px;
@@ -44,15 +40,11 @@
       font-weight: bold;
     }
 
-    .gallery {
+    img {
       display: none;
-      margin-top: 20px;
-    }
-
-    .gallery img {
       width: 100%;
       border-radius: 15px;
-      margin-top: 12px;
+      margin-top: 15px;
     }
 
     /* Floating hearts */
@@ -65,14 +57,8 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
@@ -89,12 +75,8 @@
 
     <button onclick="startSurprise()">Tap for Surprise 💖</button>
 
-    <!-- PHOTO SECTION -->
-    <div class="gallery" id="gallery">
-      <img src="Mansvi.PNG" alt="Mansvi">
-      <img src="Food1.jpg" alt="Food Donation">
-      <img src="Food2.jpg" alt="Food Donation">
-    </div>
+    <!-- SLIDESHOW IMAGE -->
+    <img id="slideshow" src="Mansvi.PNG">
 
     <!-- MUSIC -->
     <audio id="music">
@@ -103,10 +85,24 @@
   </div>
 
   <script>
+    const images = [
+      "Mansvi.PNG",
+      "Food1.jpg",
+      "Food2.jpg"
+    ];
+
+    let index = 0;
+
     function startSurprise() {
-      document.getElementById("gallery").style.display = "block";
+      const img = document.getElementById("slideshow");
+      img.style.display = "block";
       document.getElementById("music").play();
       createHearts();
+
+      setInterval(() => {
+        index = (index + 1) % images.length;
+        img.src = images[index];
+      }, 3000); // change photo every 3 seconds
     }
 
     function createHearts() {
@@ -115,9 +111,7 @@
         heart.className = "heart";
         heart.innerHTML = "❤️";
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (18 + Math.random() * 22) + "px";
         document.body.appendChild(heart);
-
         setTimeout(() => heart.remove(), 6000);
       }, 300);
     }
